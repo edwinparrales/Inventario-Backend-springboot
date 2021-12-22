@@ -1,5 +1,4 @@
 package epv.inventario.inventarioback.service;
-
 import epv.inventario.inventarioback.entity.Marca;
 import epv.inventario.inventarioback.repository.MarcaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.ArrayList;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
@@ -20,7 +17,7 @@ public class MarcaService
     @Autowired
     MarcaRepository marcaRepository;
 
-    public Page<Marca> listar(int pagNo, int pagSize){
+    public Page<Marca> listarPaginado(int pagNo, int pagSize){
         Pageable paginar = PageRequest.of(pagNo,pagSize);
         //List<Marca> lista  = new ArrayList<>();
         Page<Marca> paginas = marcaRepository.findAll(paginar);
@@ -30,12 +27,13 @@ public class MarcaService
         return  paginas;
     }
 
-    public List<Marca> listarGenerico(){
+    public List<Marca> listar(){
 
         return (List<Marca>) marcaRepository.findAll();
     }
 
     public Marca  guardar(Marca marca){
+
         return marcaRepository.save(marca);
     }
 
@@ -46,6 +44,10 @@ public class MarcaService
 
        return marcaRepository.findAll(paginar);
 
+    }
+
+    public void eliminar(Long id){
+        marcaRepository.deleteById(id);
     }
 
 }

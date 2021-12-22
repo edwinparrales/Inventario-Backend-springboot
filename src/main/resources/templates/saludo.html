@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <h1>Pagina home</h1>
+   <h3 th:text="${msg}"></h3>
+   <ul>
+       <li th:each="marca : ${marcas}"  th:text="${marca.nombre}"></li>
+   </ul>
+
+  <div id="contenedor">
+      <button type="submit" onclick="buscar()">Buscar </button>
+  </div>
+
+
+
+</body>
+<script type="text/javascript">
+    let contenedor = document.querySelector("#contenedor");
+
+
+    searh = async ()=>{
+        let data;
+     await    fetch('http://localhost:9090/catalogo/buscarCodigo/pro00000001')
+            .then(response => response.json())
+            .then(json => data= json);
+     return data;
+    }
+
+
+
+    function buscar() {
+        let datos = searh();
+
+        console.log("datos",datos);
+
+    }
+
+</script>
+</html>

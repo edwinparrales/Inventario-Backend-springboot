@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "marca")
 @Generated
-public class Marca {
+public class Marca implements Serializable {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      @Getter

@@ -1,28 +1,41 @@
 package epv.inventario.inventarioback.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Date;
 
 @Table(name = "catalogo_productos")
 @Entity
 public class CatalogoProducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "id_producto", nullable = false)
+    private Long idProducto;
 
     @Column(name = "codigo_ean")
     private String codigoEan;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
-
+    @Setter
+    @Getter
+    @Column(name = "id_categoria")
+    private Long idCategoria;
+    @Getter
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_categoria", nullable = false)
-    private Categoria idCategoria;
+    @JoinColumn(name = "id_categoria", nullable = false,insertable = false, updatable = false)
+    private Categoria categoria;
 
+    @Setter
+    @Getter
+    @Column(name = "id_marca")
+    private Long idMarca;
+    @Getter
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_marca", nullable = false)
+    @JoinColumn(name = "id_marca", nullable = false,insertable = false, updatable = false)
     private Marca marca;
 
     @Column(name = "modelo", length = 80)
@@ -42,12 +55,23 @@ public class CatalogoProducto {
 
     @Column(name = "imagen", length = 250)
     private String imagen;
-
+    @Getter
+    @Setter
     @Column(name = "fecha_creacion", nullable = false)
     private Instant fechaCreacion;
 
     @Column(name = "id_usuario", length = 100)
     private String idUsuario;
+
+    @Setter
+    @Getter
+    @Column(name = "id_proveedor")
+    private Long idProveedor;
+
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "id_proveedor", insertable = false, updatable = false)
+    Proveedor proveedor;
 
     public String getIdUsuario() {
         return idUsuario;
@@ -57,13 +81,7 @@ public class CatalogoProducto {
         this.idUsuario = idUsuario;
     }
 
-    public Instant getFechaCreacion() {
-        return fechaCreacion;
-    }
 
-    public void setFechaCreacion(Instant fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
 
     public String getImagen() {
         return imagen;
@@ -113,21 +131,7 @@ public class CatalogoProducto {
         this.modelo = modelo;
     }
 
-    public Marca getMarca() {
-        return marca;
-    }
 
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
-    public Categoria getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(Categoria idCategoria) {
-        this.idCategoria = idCategoria;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -145,11 +149,11 @@ public class CatalogoProducto {
         this.codigoEan = codigoEan;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdProducto() {
+        return idProducto;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdProducto(Long id) {
+        this.idProducto = id;
     }
 }

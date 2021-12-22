@@ -5,7 +5,7 @@ import epv.inventario.inventarioback.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -21,4 +21,17 @@ public class CategoriaService {
     public List<Categoria> listar(){
         return (List<Categoria>) categoriaRepository.findAll();
     }
+
+    public void eliminar(Long id){
+        categoriaRepository.deleteById(id);
+    }
+
+    public Categoria actualizar(Categoria categoria){
+       return  categoriaRepository.save(categoria);
+    }
+
+    public List<Categoria> buscarDescripcion(String descripcion){
+        return  categoriaRepository.findCategoriaByDescripcionContaining(descripcion);
+    }
+
 }

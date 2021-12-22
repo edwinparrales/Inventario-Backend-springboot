@@ -1,4 +1,4 @@
-package epv.inventario.inventarioback.controllers;
+package epv.inventario.inventarioback.controllers.res;
 
 import epv.inventario.inventarioback.entity.Marca;
 import epv.inventario.inventarioback.service.MarcaService;
@@ -28,7 +28,7 @@ public class MarcaController {
         //pageSize = pageSize==0?5:pageSize;
 
 
-      Page<Marca> paginas = marcaService.listar(pageNo,pageSize);
+      Page<Marca> paginas = marcaService.listarPaginado(pageNo,pageSize);
 
 
         return new ResponseEntity(paginas, new HttpHeaders(), HttpStatus.OK);
@@ -45,7 +45,7 @@ public class MarcaController {
     public ResponseEntity<List<Marca>> listaTotal(){
 
 
-        List<Marca> list = marcaService.listarGenerico();
+        List<Marca> list = marcaService.listar();
 
         return new ResponseEntity<List<Marca>>(list, new HttpHeaders(), HttpStatus.OK);
 
@@ -69,6 +69,13 @@ public class MarcaController {
         return new ResponseEntity<>(pagMarca,HttpStatus.OK);
 
 
+
+    }
+
+    @PostMapping("/eliminar/{id}")
+    public ResponseEntity eliminar(@PathVariable Long id){
+        marcaService.eliminar(id);
+        return  new ResponseEntity<>(HttpStatus.OK);
 
     }
 

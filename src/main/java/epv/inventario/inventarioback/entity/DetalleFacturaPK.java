@@ -1,0 +1,14 @@
+package epv.inventario.inventarioback.entity;
+
+import lombok.Data;
+
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
+@Embeddable
+@Data
+public class DetalleFacturaPK implements Serializable {
+    private Long idCatalogProducto;
+    private Long idFactura;
+
+}
